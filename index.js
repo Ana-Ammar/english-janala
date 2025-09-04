@@ -1,3 +1,23 @@
+  const createElement = (arr) => {
+    const htmlElements = arr.map(el => `<span class="bg-[#EDF7FF] text-lg px-4 py-2 border-1 border-[#D7E4EF] rounded-md">${el}</span>`)
+    return (htmlElements.join(" "))
+  }
+
+
+const manageSpinner = (status) => {
+    if (status == true) {
+      document.getElementById("spinner").classList.remove('hidden')
+      document.getElementById("word-container").classList.add('hidden')
+    } 
+    else {
+      document.getElementById("word-container").classList.remove('hidden')
+      document.getElementById("spinner").classList.add('hidden')
+    }
+}
+
+
+
+
 const loadLessons = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((res) => res.json())
@@ -10,6 +30,7 @@ const removeActive = () => {
 };
 
 const loadLevelWord = (id) => {
+  manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   fetch(url)
     .then((res) => res.json())
@@ -21,11 +42,44 @@ const loadLevelWord = (id) => {
     });
 };
 
-const loadWordDetail = () => {
+const loadWordDetail = (id) => {
   const url = `https://openapi.programming-hero.com/api/word/${id}`;
   fetch(url)
     .then((res) => res.json())
-    .then((json) => console.log(json));
+    .then((json) => displayWordDetail(json.data));
+};
+
+const displayWordDetail = (word) => {
+  const detailsBox = document.getElementById("details-container");
+  detailsBox.innerHTML = `
+      <div class="bg-white p-4 rounded-xl">
+            <div class="border border-[#EDF7FF] p-4 rounded-xl space-y-3">
+              <h2 class="font-semibold text-2xl">
+                ${word.word}
+                <span
+                  >(<i class="fa-solid fa-microphone-lines"></i> :${word.pronunciation})</span
+                >
+              </h2>
+              <div class="my-4 space-y-2">
+                <p class="font-semibold text-xl">Meaning</p>
+                <p class="font-medium text-xl bangla">${word.meaning}</p>
+              </div>
+              <div class="my-4 space-y-2">
+                <p class="font-semibold text-xl">Example</p>
+                <p class="text-xl">${word.sentence}</p>
+              </div>
+              <p class="font-medium text-xl bangla">সমার্থক শব্দ গুলো</p>
+              <div class="space-x-2">
+                ${createElement(word.synonyms)}
+              </div>
+            </div>
+            <button class="btn btn-primary rounded-xl mt-6">
+              Complete Learning
+            </button>
+          </div>
+  
+  `
+  document.getElementById('my_modal_5').showModal()
 };
 
 const displayLevelWord = (words) => {
@@ -70,6 +124,7 @@ const displayLevelWord = (words) => {
     `;
     wordContainer.append(card);
   });
+  manageSpinner(false)
 };
 
 const displayLessons = (lessons) => {

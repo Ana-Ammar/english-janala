@@ -126,6 +126,12 @@
       ></div>
     </section>
 
+
+    <!-- spinner or loding section -->
+    <section id="spinner" class="flex justify-center items-center py-10 hidden">
+      <span class="loading loading-bars loading-xl"></span>
+    </section>
+
     <!-- Word container section -->
     <section
       id="word-container"
@@ -137,24 +143,24 @@
           একটি Lesson Select করুন।
         </p>
       </div>
-
     </section>
 
     <!-- Open the modal using ID.showModal() method -->
-      <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
-       
-      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-          <h3 class="text-lg font-bold">Hello!</h3>
-          <p class="py-4">Press ESC key or click the button below to close</p>
-          <div class="modal-action">
-            <form method="dialog">
-              <!-- if there is a button in form, it will close the modal -->
-              <button class="btn">Close</button>
-            </form>
-          </div>
+    <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <div id="details-container" class="">
+  
         </div>
-      </dialog>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
 
     <!-- Java Script Link -->
     <script src="./index.js"></script>
